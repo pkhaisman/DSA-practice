@@ -129,7 +129,6 @@ console.log(possibleMazePath(maze))
 // 9) Maze - All Paths
 
 // 10) Anagrams
-
 function simpleAnagrams(simpleString) {
     const firstLetter = simpleString[0]
     const remainingLetters = simpleString.slice(1)

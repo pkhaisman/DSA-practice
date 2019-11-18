@@ -10,7 +10,7 @@ function escape(numberOfSheep) {
 }
 
 const numberOfSheep = 3
-escape(numberOfSheep)
+// escape(numberOfSheep)
 
 // 2) Power Calculator
 function powerCalculator(base, power) {
@@ -22,7 +22,7 @@ function powerCalculator(base, power) {
 }
 
 const base = 10, power = 5
-console.log(powerCalculator(base, power))
+// console.log(powerCalculator(base, power))
 
 // 3) Reverse a String
 function reverseString(string) {
@@ -34,7 +34,7 @@ function reverseString(string) {
 }
 
 const string = 'Hello'
-console.log(reverseString(string))
+// console.log(reverseString(string))
 
 // 4) nth Triangular Number
 function nthTriNum(triLength) {
@@ -46,7 +46,7 @@ function nthTriNum(triLength) {
 }
 
 const triLength = 10
-console.log(nthTriNum(triLength))
+// console.log(nthTriNum(triLength))
 
 // 5) String Splitter
 // HELP
@@ -64,7 +64,7 @@ function stringSplitter(inputString, separator) {
 }
 
 const inputString = '02/20/2020', separator = '/'
-console.log(stringSplitter(inputString, separator))
+// console.log(stringSplitter(inputString, separator))
 
 // 6) Fibonacci
 
@@ -78,7 +78,7 @@ function factorial(num) {
 } 
 
 const numFactorial = 5
-console.log(factorial(numFactorial))
+// console.log(factorial(numFactorial))
 
 // 8) Maze
 // this maze will not work if there are any blocked paths
@@ -124,19 +124,28 @@ let maze = [
     [' ', ' ', ' ', ' ', ' ', ' ', 'e']
 ];
 
-console.log(possibleMazePath(maze))
+// console.log(possibleMazePath(maze))
 
 // 9) Maze - All Paths
 
 // 10) Anagrams
-function simpleAnagrams(simpleString) {
-    const firstLetter = simpleString[0]
-    const remainingLetters = simpleString.slice(1)
-    const remainingLettersReversed = remainingLetters.split('').reverse().join('')
+function anagrams(string) {
+    var results = {};
+   
+    function combos(buildCombo, string) {
+        if (!string.length) {
+            results[buildCombo] = 'values';
+            return;
+        }
 
-    return [firstLetter.concat(remainingLetters), firstLetter.concat(remainingLettersReversed)]
-}
+        for (var i = 0; i < string.length; i++) {
+            console.log(buildCombo + string.charAt(i), string.slice(0, i) + string.slice(i + 1))
+            combos(buildCombo + string.charAt(i), string.slice(0, i) + string.slice(i + 1));
+        }
+    };
+   
+    combos('', string);
+    return Object.keys(results);
+};
 
-const simpleString = 'abc' // -> ['abc', 'acb']
-const solutionArr = []
-console.log(threeLetterWord(simpleString, solutionArr))
+console.log(anagrams('abc'));

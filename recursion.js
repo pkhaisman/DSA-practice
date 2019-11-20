@@ -129,23 +129,70 @@ let maze = [
 // 9) Maze - All Paths
 
 // 10) Anagrams
-function anagrams(string) {
-    var results = {};
-   
-    function combos(buildCombo, string) {
-        if (!string.length) {
-            results[buildCombo] = 'values';
-            return;
-        }
+function reverse(string) {
+    return string.split('').reverse().join('')
+}
 
-        for (var i = 0; i < string.length; i++) {
-            console.log(buildCombo + string.charAt(i), string.slice(0, i) + string.slice(i + 1))
-            combos(buildCombo + string.charAt(i), string.slice(0, i) + string.slice(i + 1));
-        }
-    };
-   
-    combos('', string);
-    return Object.keys(results);
-};
+// abc -> abc acb bca bac cab cba
+function combos(string) {
+    let arrStrings = []
+    let strArr = string.split('')
 
-console.log(anagrams('abc'));
+    while (arrStrings.length !== string.length) {
+        // store first letter of string
+        const firstLetter = strArr[0]
+        // remove first letter of string
+        strArr.shift()
+        // push firstLetter to string
+        strArr.push(firstLetter)
+        // convert back to string and push to solution array
+        arrStrings.push(strArr.join(''))
+    }
+    
+    return arrStrings
+}
+
+function anagrams(string, solution) {
+    solution = solution || []
+
+    if (string.length === 2) {
+        return reverse(string)
+    }
+
+    while (solution.length !== factorial(string.length)) {
+        let combosArr = combos(string)
+
+        combosArr.forEach(comboStr => {
+            const firstLetter = comboStr[0]
+            const newStr = comboStr.slice(1)
+            solution.push(firstLetter + anagrams(newStr))
+            return anagrams(newStr)
+        })
+    }
+
+    return solution
+}
+
+const testAnaStr = 'abcd'
+// console.log(anagrams('abcd'));
+
+// Write a recursive function that prints the Fibonacci sequence of a given number. 
+// The Fibonacci sequence is a series of numbers in which each number is the sum of 
+// the 2 preceding numbers. For example, the 7th Fibonacci number in a Fibonacci 
+// sequence is 13. The sequence looks as follows: 1, 1, 2, 3, 5, 8, 13.
+
+// fibSeq(7) => 0, 1, 1, 2, 3, 5, 8, 13
+
+function fibSeq(num) {
+    if (num <= 1) {
+        return [0 , 1]
+    }
+
+    // recursive case
+    let indexOne = fibSeq(num - 1)[fibSeq(num - 1).length - 2]
+    let indexTwo = fibSeq(num - 1)[fibSeq(num - 1).length - 1]
+
+    return fibSeq(num - 1).concat(indexOne + indexTwo)
+}
+
+console.log(fibSeq(10))
